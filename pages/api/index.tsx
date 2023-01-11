@@ -30,7 +30,6 @@ export default async function og(req: NextRequest) {
               flexDirection: 'column',
               justifyContent: 'flex-start',
               alignItems: 'flex-start',
-              lineHeight: 1.5,
             }}
           >
             <div style={{
@@ -50,7 +49,6 @@ export default async function og(req: NextRequest) {
             }}>
               <div style={{
                 fontSize: 36,
-                marginTop: 24,
                 opacity: 0.5,
               }}>
                 {course.id}
