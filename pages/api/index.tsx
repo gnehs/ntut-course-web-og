@@ -53,7 +53,7 @@ export default async function og(req: NextRequest) {
                 marginTop: 24,
                 opacity: 0.5,
               }}>
-                {`${course.courseType} ${course.id}`}
+                {course.id}
               </div>
               <div style={{
                 fontSize: 56,
