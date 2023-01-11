@@ -43,7 +43,6 @@ export default async function og(req: NextRequest) {
             }}
           >
             <div style={{
-              fontSize: 24,
               padding: '32px 64px',
               display: 'flex',
               justifyContent: 'space-between',
@@ -98,16 +97,15 @@ export default async function og(req: NextRequest) {
             <div style={{ flex: 1 }} />
             <div style={{
               display: 'flex',
-              marginTop: 24,
-              gap: 32,
+              gap: 64,
               padding: `32px 64px`,
               background: '#f2f2f2',
-              justifyContent: 'space-between',
               width: '100%',
             }}>
               <div style={{
                 display: 'flex',
                 flexDirection: 'column',
+                maxWidth: '33.33%'
               }}>
                 <div style={{
                   fontSize: 24,
@@ -115,6 +113,7 @@ export default async function og(req: NextRequest) {
                 <div style={{
                   fontSize: 24,
                   opacity: 0.5,
+                  width: '100%'
                 }}>
                   {course.teacher.map(x => x.name).join('、')}
                 </div>
