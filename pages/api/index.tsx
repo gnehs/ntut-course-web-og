@@ -116,7 +116,7 @@ export default async function og(req: NextRequest) {
                   opacity: 0.5,
                   width: '100%'
                 }}>
-                  {course.teacher.map(x => x.name).join('、')}
+                  {course.teacher.map(x => x.name).join('、') || '無'}
                 </div>
               </div>
               <div style={{
@@ -130,7 +130,7 @@ export default async function og(req: NextRequest) {
                   fontSize: 24,
                   opacity: 0.5,
                 }}>
-                  {course.class.map(x => x.name).join('、')}
+                  {course.class.map(x => x.name).join('、') || '無'}
                 </div>
               </div>
               <div style={{
