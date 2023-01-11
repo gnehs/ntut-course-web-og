@@ -25,7 +25,7 @@ export default async function og(req: NextRequest) {
       '▲': '校訂專業必修',
       '★': '專業選修'
     }
-    const courseStandard = courseStandardList[course.courseType]
+    const courseStandard = `📕 ${courseStandardList[course.courseType]}`
     if (course) {
       return new ImageResponse(
         (
