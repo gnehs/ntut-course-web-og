@@ -31,7 +31,7 @@ export default async function og(req: NextRequest) {
         (
           <div
             style={{
-              background: 'white',
+              backgroundColor: 'white',
               width: '100%',
               height: '100%',
               display: 'flex',
@@ -41,6 +41,7 @@ export default async function og(req: NextRequest) {
               alignItems: 'flex-start',
               fontSize: 24,
             }}
+            lang="zh-TW"
           >
             <div style={{
               padding: '32px 64px',
@@ -152,7 +153,7 @@ export default async function og(req: NextRequest) {
         {
           width: 1200,
           height: 600,
-          emoji: "fluentFlat"
+          emoji: "fluent"
         },
       );
     }
