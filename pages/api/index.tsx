@@ -17,6 +17,15 @@ export default async function og(req: NextRequest) {
     let id = searchParams.get('id');
     const courses = await fetch(`https://gnehs.github.io/ntut-course-crawler-node/${year}/${sem}/${department}.json`).then((res) => res.json());
     const course = courses.find(x => x.id === id);
+    const courseStandardList = {
+      '○': '部訂共同必修',
+      '△': '校訂共同必修',
+      '☆': '共同選修',
+      '●': '部訂專業必修',
+      '▲': '校訂專業必修',
+      '★': '專業選修'
+    }
+    const courseStandard = courseStandardList[course.courseType]
     if (course) {
       return new ImageResponse(
         (
@@ -30,13 +39,18 @@ export default async function og(req: NextRequest) {
               flexDirection: 'column',
               justifyContent: 'flex-start',
               alignItems: 'flex-start',
+              fontSize: 24,
             }}
           >
             <div style={{
               fontSize: 24,
-              padding: '32px',
+              padding: '32px 64px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '100%',
             }}>
-              北科課程好朋友
+              <div>🍤 北科課程好朋友</div>
+              <div style={{ opacity: .5 }}>ntut-course.gnehs.net</div>
             </div>
             <div style={{ flex: 1 }} />
             <div style={{
@@ -45,12 +59,9 @@ export default async function og(req: NextRequest) {
               flexDirection: 'column',
               justifyContent: 'flex-start',
               alignItems: 'flex-start',
-              padding: '32px',
+              padding: `32px 64px`,
             }}>
-              <div style={{
-                fontSize: 36,
-                opacity: 0.5,
-              }}>
+              <div>
                 {course.id}
               </div>
               <div style={{
@@ -64,14 +75,34 @@ export default async function og(req: NextRequest) {
               }}>
                 {course.name.en}
               </div>
+              <div style={{
+                display: 'flex',
+                gap: 8,
+                marginTop: 8,
+              }}>
+
+                {[courseStandard, `🎓 ${course.credit} 學分`, ...course.classroom.map(x => `🚪 ${x.name}`)].map(x =>
+                  <div style={{
+                    fontSize: 24,
+                    border: `1px solid #ddd`,
+                    padding: '8px 16px',
+                    borderRadius: 12,
+                  }}
+                    key={x}
+                  >
+                    {x}
+                  </div>
+                )}
+              </div>
             </div>
             <div style={{ flex: 1 }} />
             <div style={{
               display: 'flex',
               marginTop: 24,
               gap: 32,
-              padding: 32,
+              padding: `32px 64px`,
               background: '#f2f2f2',
+              justifyContent: 'space-between',
               width: '100%',
             }}>
               <div style={{
@@ -122,6 +153,7 @@ export default async function og(req: NextRequest) {
         {
           width: 1200,
           height: 600,
+          emoji: "fluentFlat"
         },
       );
     }
