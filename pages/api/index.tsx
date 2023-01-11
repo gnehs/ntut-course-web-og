@@ -12,7 +12,7 @@ const TaipeiSansRegularFontP = fetch(
 const TaipeiSansBoldFontP = fetch(
   new URL("../../assets/TaipeiSansTCBeta-Bold.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer());
-export default async function (req: NextRequest) {
+export default async function og(req: NextRequest) {
   const [TaipeiSansRegularFont, TaipeiSansBoldFont] = await Promise.all([
     TaipeiSansRegularFontP,
     TaipeiSansBoldFontP,
