@@ -5,20 +5,7 @@ import { NextRequest } from 'next/server';
 export const config = {
   runtime: 'edge',
 };
-const TaipeiSansRegularFontP = fetch(
-  new URL("../../assets/TaipeiSansTCBeta-Regular.ttf", import.meta.url)
-).then((res) => res.arrayBuffer());
-
-const TaipeiSansBoldFontP = fetch(
-  new URL("../../assets/TaipeiSansTCBeta-Bold.ttf", import.meta.url)
-).then((res) => res.arrayBuffer());
 export default async function og(req: NextRequest) {
-  const [TaipeiSansRegularFont, TaipeiSansBoldFont] = await Promise.all([
-    TaipeiSansRegularFontP,
-    TaipeiSansBoldFontP,
-  ]);
-
-
   const { searchParams } = new URL(req.url)
   const hasYear = searchParams.has('year');
   const hasSem = searchParams.has('sem');
@@ -35,7 +22,6 @@ export default async function og(req: NextRequest) {
         (
           <div
             style={{
-              fontFamily: '"TaipeiSans"',
               background: 'white',
               width: '100%',
               height: '100%',
@@ -71,13 +57,11 @@ export default async function og(req: NextRequest) {
               </div>
               <div style={{
                 fontSize: 56,
-                fontWeight: 'bold',
               }}>
                 {course.name.zh}
               </div>
               <div style={{
                 fontSize: 36,
-                fontWeight: 'bold',
                 opacity: 0.5,
               }}>
                 {course.name.en}
@@ -140,20 +124,6 @@ export default async function og(req: NextRequest) {
         {
           width: 1200,
           height: 600,
-          fonts: [
-            {
-              name: "TaipeiSans",
-              data: TaipeiSansRegularFont,
-              style: "normal",
-              weight: 400,
-            },
-            {
-              name: "TaipeiSans",
-              data: TaipeiSansBoldFont,
-              style: "normal",
-              weight: 700,
-            },
-          ],
         },
       );
     }
