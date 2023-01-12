@@ -117,6 +117,7 @@ export default async function og(req: NextRequest) {
                 gap: 8,
                 marginTop: 16,
               }}>
+                <Tag>{`🕒 ${year} 年${sem == 1 ? '上' : '下'}學期`}</Tag>
                 <Tag>{courseStandard}</Tag>
                 <Tag>{`🎓 ${parseFloat(course.credit)} 學分`}</Tag>
                 {course.classroom.map(x => `🚪 ${x.name}`).map(x =>
