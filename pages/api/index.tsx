@@ -27,7 +27,7 @@ export default async function og(req: NextRequest) {
         opacity: 0.5,
         width: '100%'
       }}>
-        {value || '無'}
+        {(value && value != '' ? value : '無')}
       </div>
     </div>
   const Container = ({ children }) =>
