@@ -15,7 +15,6 @@ export default async function og(req: NextRequest) {
     const name = searchParams.get('name');
     const withdrawal = await fetch(`https://gnehs.github.io/ntut-course-crawler-node/analytics/withdrawal.json`).then((res) => res.json());
     const teacher = withdrawal.data.find(x => x.name == name);
-    console.log(teacher)
     if (teacher) {
       return new ImageResponse(
         (
