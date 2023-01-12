@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { ImageResponse } from '@vercel/og';
 import { NextRequest } from 'next/server';
-
+import { Container, Header, Spacer, Content, Title, SubTitle, Tags, Tag, Footer, FooterItem } from '../../components/og';
 
 const font = fetch(new URL('../../assets/Lato-Regular.ttf', import.meta.url)).then(
   (res) => res.arrayBuffer(),
@@ -13,49 +13,6 @@ export const config = {
 export default async function og(req: NextRequest) {
   const fontData = await font;
 
-  const FooterItem = ({ title, value }) =>
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      maxWidth: '33.33%'
-    }}>
-      <div style={{
-        fontSize: 24,
-      }}>{title}</div>
-      <div style={{
-        fontSize: 24,
-        opacity: 0.5,
-        width: '100%'
-      }}>
-        {(value && value != '' ? value : '無')}
-      </div>
-    </div>
-  const Container = ({ children }) =>
-    <div
-      style={{
-        backgroundColor: 'white',
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        textAlign: 'left',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        fontFamily: 'Lato',
-        alignItems: 'flex-start',
-        fontSize: 24,
-      }}
-      lang="zh-TW"
-    >{children}</div>
-  const Tag = ({ children }) =>
-    <div style={{
-      fontSize: 24,
-      border: `1px solid #f2f2f2`,
-      padding: '8px 16px',
-      borderRadius: 12,
-      boxShadow: `0 4px 8px rgba(0,0,0,.1)`
-    }}>
-      {children}
-    </div>
 
   const { searchParams } = new URL(req.url)
   const hasYear = searchParams.has('year');
@@ -81,61 +38,32 @@ export default async function og(req: NextRequest) {
       return new ImageResponse(
         (
           <Container>
-            <div style={{
-              padding: '32px 64px',
-              display: 'flex',
-              justifyContent: 'space-between',
-              width: '100%',
-            }}>
-              <div>🍤 北科課程好朋友</div>
-              <div style={{ opacity: .5 }}>{`${year} 年${sem == 1 ? '上' : '下'}學期`}</div>
-            </div>
-            <div style={{
-              display: 'flex',
-              textAlign: 'left',
-              flexDirection: 'column',
-              justifyContent: 'flex-start',
-              alignItems: 'flex-start',
-              padding: `32px 64px`,
-            }}>
-              <div>
-                {course.id}
-              </div>
-              <div style={{
-                fontSize: 56,
-              }}>
+            <Header>
+              <div>{`${year} 年${sem == 1 ? '上' : '下'}學期`}</div>
+            </Header>
+            <Spacer />
+            <Content>
+              {course.id}
+              <Title>
                 {course.name.zh}
-              </div>
-              <div style={{
-                fontSize: 36,
-                opacity: 0.5,
-              }}>
+              </Title>
+              <SubTitle>
                 {course.name.en}
-              </div>
-              <div style={{
-                display: 'flex',
-                gap: 8,
-                marginTop: 16,
-              }}>
+              </SubTitle>
+              <Tags>
                 <Tag>{courseStandard}</Tag>
                 <Tag>{`🎓 ${parseFloat(course.credit)} 學分`}</Tag>
                 {course.classroom.map(x => `🚪 ${x.name}`).map(x =>
                   <Tag key={x}>{x}</Tag>
                 )}
-              </div>
-            </div>
-            <div style={{ flex: 1 }} />
-            <div style={{
-              display: 'flex',
-              gap: 64,
-              padding: `32px 64px`,
-              background: '#f2f2f2',
-              width: '100%',
-            }}>
+              </Tags>
+            </Content>
+            <Spacer />
+            <Footer>
               <FooterItem title="教師" value={course.teacher.map(x => x.name).join('、')} />
               <FooterItem title="班級" value={course.class.map(x => x.name).join('、')} />
               <FooterItem title="備註" value={course.notes} />
-            </div>
+            </Footer>
           </Container>
         ),
         {
@@ -155,24 +83,30 @@ export default async function og(req: NextRequest) {
   }
   return new ImageResponse(
     (
-      <div
-        style={{
-          fontSize: 128,
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          textAlign: 'center',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        北科課程好朋友
-      </div>
+      <Container>
+        <Spacer />
+        <Content>
+          <Title>
+            🍤 北科課程好朋友
+          </Title>
+          <SubTitle>
+            ntut-course.gnehs.net
+          </SubTitle>
+        </Content>
+        <Spacer />
+      </Container>
     ),
     {
       width: 1200,
       height: 600,
+      emoji: "fluent",
+      fonts: [
+        {
+          name: 'Lato',
+          data: fontData,
+          style: 'normal',
+        },
+      ],
     },
   );
 
