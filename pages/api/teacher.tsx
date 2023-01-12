@@ -10,54 +10,34 @@ export default async function og(req: NextRequest) {
   const fontData = await font;
 
   const { searchParams } = new URL(req.url)
-  const hasYear = searchParams.has('year');
-  const hasSem = searchParams.has('sem');
-  const hasId = searchParams.has('id');
-  if (hasYear && hasSem && hasId) {
-    let year = searchParams.get('year');
-    let sem = searchParams.get('sem');
-    let department = searchParams.get('d') || 'main'
-    let id = searchParams.get('id');
-    const courses = await fetch(`https://gnehs.github.io/ntut-course-crawler-node/${year}/${sem}/${department}.json`).then((res) => res.json());
-    const course = courses.find(x => x.id === id);
-    if (course) {
-      const courseStandardList = {
-        '○': '部訂共同必修',
-        '△': '校訂共同必修',
-        '☆': '共同選修',
-        '●': '部訂專業必修',
-        '▲': '校訂專業必修',
-        '★': '專業選修'
-      }
-      const courseStandard = `📕 ${courseStandardList[course.courseType]}`
+  const hasName = searchParams.has('name');
+  if (hasName) {
+    const name = searchParams.get('name');
+    const withdrawal = await fetch(`https://gnehs.github.io/ntut-course-crawler-node/analytics/withdrawal.json`).then((res) => res.json());
+    const teacher = withdrawal.data.find(x => x.name == name);
+    console.log(teacher)
+    if (teacher) {
       return new ImageResponse(
         (
           <Container>
-            <Header>
-              <div>{`${year} 年${sem == 1 ? '上' : '下'}學期`}</div>
-            </Header>
+            <Header />
             <Spacer />
             <Content>
-              {course.id}
               <Title>
-                {course.name.zh}
+                {teacher.name}
               </Title>
               <SubTitle>
-                {course.name.en}
+                教師
               </SubTitle>
               <Tags>
-                <Tag>{courseStandard}</Tag>
-                <Tag>{`🎓 ${parseFloat(course.credit)} 學分`}</Tag>
-                {course.classroom.map(x => `🚪 ${x.name}`).map(x =>
-                  <Tag key={x}>{x}</Tag>
-                )}
+                <Tag>{`🎓 ${teacher.course.length} 堂課程`}</Tag>
               </Tags>
             </Content>
             <Spacer />
             <Footer>
-              <FooterItem title="教師" value={course.teacher.map(x => x.name).join('、')} />
-              <FooterItem title="班級" value={course.class.map(x => x.name).join('、')} />
-              <FooterItem title="備註" value={course.notes} />
+              <FooterItem title="選課" value={`${teacher.people} 人`} />
+              <FooterItem title="退選" value={`${teacher.withdraw} 人`} />
+              <FooterItem title="退選率" value={`${teacher.rate_percent}%`} />
             </Footer>
           </Container>
         ),
