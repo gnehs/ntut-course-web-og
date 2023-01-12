@@ -120,7 +120,7 @@ export default async function og(req: NextRequest) {
                 <Tag>{courseStandard}</Tag>
                 <Tag>{`🎓 ${parseFloat(course.credit)} 學分`}</Tag>
                 {course.classroom.map(x => `🚪 ${x.name}`).map(x =>
-                  <Tag key={x} > {x} </Tag>
+                  <Tag key={x}>{x}</Tag>
                 )}
               </div>
             </div>
