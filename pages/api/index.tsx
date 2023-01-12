@@ -88,7 +88,7 @@ export default async function og(req: NextRequest) {
               width: '100%',
             }}>
               <div>🍤 北科課程好朋友</div>
-              <div style={{ opacity: .5 }}>ntut-course.gnehs.net</div>
+              <div style={{ opacity: .5 }}>{`${year} 年${sem == 1 ? '上' : '下'}學期`}</div>
             </div>
             <div style={{
               display: 'flex',
@@ -117,7 +117,6 @@ export default async function og(req: NextRequest) {
                 gap: 8,
                 marginTop: 16,
               }}>
-                <Tag>{`🕒 ${year} 年${sem == 1 ? '上' : '下'}學期`}</Tag>
                 <Tag>{courseStandard}</Tag>
                 <Tag>{`🎓 ${parseFloat(course.credit)} 學分`}</Tag>
                 {course.classroom.map(x => `🚪 ${x.name}`).map(x =>
