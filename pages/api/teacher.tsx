@@ -34,9 +34,9 @@ export default async function og(req: NextRequest) {
             </Content>
             <Spacer />
             <Footer>
-              <FooterItem title="選課" value={`${teacher.people} 人`} />
-              <FooterItem title="退選" value={`${teacher.withdraw} 人`} />
               <FooterItem title="退選率" value={`${teacher.rate_percent}%`} />
+              <FooterItem title="退選" value={`${teacher.withdraw} 人`} />
+              <FooterItem title="選課" value={`${teacher.people} 人`} />
             </Footer>
           </Container>
         ),
