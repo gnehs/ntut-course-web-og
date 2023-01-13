@@ -27,6 +27,18 @@ https://ntut-course-og.gnehs.net/api/teacher?name=陳銘崑
 | Name | Description |
 | --- | --- |
 | name | 教師姓名 |
+### 班級
+![](https://ntut-course-og.gnehs.net/api/class?year=109&sem=2&id=2529)
+#### Example
+```
+https://ntut-course-og.gnehs.net/api/class?year=109&sem=2&id=2529
+```
+#### Parameters
+| Name | Description |
+| --- | --- |
+| year | 課程年度，例如 `109` |
+| sem | 課程學期，例如 `1` 或 `2` |
+| id | 課程代碼，例如 `2529` |
 
 
 ## Getting Started
