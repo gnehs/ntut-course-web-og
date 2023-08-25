@@ -1,20 +1,35 @@
 //@ts-nocheck
-import { ImageResponse } from '@vercel/og';
-import { NextRequest } from 'next/server';
-import { Container, Header, Spacer, Content, Title, SubTitle, Tags, Tag, Footer, FooterItem } from '../../components/og';
+import { ImageResponse } from "@vercel/og";
+import { NextRequest } from "next/server";
+import {
+  Container,
+  Header,
+  Spacer,
+  Content,
+  Title,
+  SubTitle,
+  Tags,
+  Tag,
+  Footer,
+  FooterItem,
+} from "../../components/og";
 
-const font = fetch(new URL('../../assets/Lato-Regular.ttf', import.meta.url)).then(res => res.arrayBuffer());
+const font = fetch(
+  new URL("../../assets/Lato-Regular.ttf", import.meta.url)
+).then((res) => res.arrayBuffer());
 
-export const config = { runtime: 'edge' };
+export const config = { runtime: "edge" };
 export default async function og(req: NextRequest) {
   const fontData = await font;
 
-  const { searchParams } = new URL(req.url)
-  const hasName = searchParams.has('name');
+  const { searchParams } = new URL(req.url);
+  const hasName = searchParams.has("name");
   if (hasName) {
-    const name = searchParams.get('name');
-    const withdrawal = await fetch(`https://gnehs.github.io/ntut-course-crawler-node/analytics/withdrawal.json`).then((res) => res.json());
-    const teacher = withdrawal.data.find(x => x.name == name);
+    const name = searchParams.get("name");
+    const withdrawal = await fetch(
+      `https://gnehs.github.io/ntut-course-crawler-node/analytics/withdrawal.json`
+    ).then((res) => res.json());
+    const teacher = withdrawal.data.find((x) => x.name == name);
     if (teacher) {
       return new ImageResponse(
         (
@@ -22,12 +37,8 @@ export default async function og(req: NextRequest) {
             <Header />
             <Spacer />
             <Content>
-              <Title>
-                {teacher.name}
-              </Title>
-              <SubTitle>
-                教師
-              </SubTitle>
+              <Title>{teacher.name}</Title>
+              <SubTitle>教師</SubTitle>
               <Tags>
                 <Tag>{`🎓 ${teacher.course.length} 堂課程`}</Tag>
               </Tags>
@@ -46,12 +57,12 @@ export default async function og(req: NextRequest) {
           emoji: "fluent",
           fonts: [
             {
-              name: 'Lato',
+              name: "Lato",
               data: fontData,
-              style: 'normal',
+              style: "normal",
             },
           ],
-        },
+        }
       );
     }
   }
@@ -60,12 +71,8 @@ export default async function og(req: NextRequest) {
       <Container>
         <Spacer />
         <Content>
-          <Title>
-            🍤 北科課程好朋友
-          </Title>
-          <SubTitle>
-            ntut-course.gnehs.net
-          </SubTitle>
+          <Title>🍤 北科課程好朋友</Title>
+          <SubTitle>ntut-course.gnehs.net</SubTitle>
         </Content>
         <Spacer />
       </Container>
@@ -76,14 +83,11 @@ export default async function og(req: NextRequest) {
       emoji: "fluent",
       fonts: [
         {
-          name: 'Lato',
+          name: "Lato",
           data: fontData,
-          style: 'normal',
+          style: "normal",
         },
       ],
-    },
+    }
   );
-
-
-
 }
